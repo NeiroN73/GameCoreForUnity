@@ -1,0 +1,13 @@
+{
+  "name": "com.ilyaprokhorov.gamecore",
+  "version": "1.0.0",
+  "displayName": "GameCore",
+  "dependencies": {
+    "jp.hadashikick.vcontainer": "1.17.0",
+    "com.cysharp.r3": "1.3.0",
+    "com.cysharp.unitask": "2.1.0",
+    "com.github-glitchenzo.nugetforunity": "1.0.0",
+    "com.codewriter.triinspector": "1.14.1"
+  },
+  "description": "Game core architecture for Unity"
+}
