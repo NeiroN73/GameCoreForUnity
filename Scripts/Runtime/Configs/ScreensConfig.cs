@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using Content.Scripts.Configs.Base;
-using Content.Scripts.UI.Base;
+using GameCore.UI;
+using GameCore.Utils;
 using TriInspector;
 using UnityEngine;
 
-namespace Content.Scripts.Configs
+namespace GameCore.Configs
 {
     [CreateAssetMenu(fileName = "ScreensConfig", menuName = "Configs/ScreensConfig")]
     public class ScreensConfig : Config

@@ -1,4 +1,4 @@
-namespace Content.Scripts.UI
+namespace GameCore.UI
 {
     public class DefaultViewModel : ViewModel
     {

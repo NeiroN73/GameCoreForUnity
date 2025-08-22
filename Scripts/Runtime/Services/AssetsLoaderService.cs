@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-namespace Content.Scripts.Services
+namespace GameCore.Services
 {
     public class AssetsLoaderService : Service
     {

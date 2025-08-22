@@ -1,7 +1,7 @@
-using Content.Scripts.UI;
+using GameCore.UI;
 using VContainer;
 
-namespace Content.Scripts.Factories
+namespace GameCore.Factories
 {
     public class ViewModelFactory : Factory
     {

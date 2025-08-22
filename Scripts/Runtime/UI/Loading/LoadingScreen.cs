@@ -1,6 +1,4 @@
-using Content.Scripts.UI.Base;
-
-namespace Content.Scripts.UI.Loading
+namespace GameCore.UI.Loading
 {
     public class LoadingScreen : Screen<LoadingViewModel>
     {

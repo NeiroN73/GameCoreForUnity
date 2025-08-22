@@ -1,6 +1,6 @@
 using R3;
 
-namespace Content.Scripts.Services
+namespace GameCore.Services
 {
     public interface ITickable
     {

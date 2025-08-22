@@ -1,7 +1,7 @@
 using System;
 using R3;
 
-namespace Content.Scripts.UI
+namespace GameCore.UI
 {
     public class ViewModelBinder<TValue> : ViewModelBinder
     {

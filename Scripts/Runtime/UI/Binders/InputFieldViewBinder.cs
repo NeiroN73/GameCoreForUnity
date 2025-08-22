@@ -3,7 +3,7 @@ using R3;
 using TMPro;
 using UnityEngine;
 
-namespace Content.Scripts.UI.Binders
+namespace GameCore.UI
 {
     [Serializable]
     public class InputFieldTextChangedViewBinder : InputFieldViewBinder<ReactiveCommand<string>>

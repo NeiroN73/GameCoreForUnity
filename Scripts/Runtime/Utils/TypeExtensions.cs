@@ -6,7 +6,7 @@ using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Content.Scripts.Utils
+namespace GameCore.Utils
 {
     public static class TypeExtensions
     {

@@ -1,11 +1,10 @@
-using Content.Scripts.Configs;
-using Content.Scripts.UI.Loading;
 using Cysharp.Threading.Tasks;
+using GameCore.UI.Loading;
 using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
 using VContainer;
 
-namespace Content.Scripts.Services
+namespace GameCore.Services
 {
     public class ScenesService : Service
     {

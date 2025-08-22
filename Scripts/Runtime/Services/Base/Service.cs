@@ -1,4 +1,4 @@
-namespace Content.Scripts.Services
+namespace GameCore.Services
 {
     public abstract class Service
     {

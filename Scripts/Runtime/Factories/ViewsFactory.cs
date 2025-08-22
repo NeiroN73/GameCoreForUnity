@@ -1,8 +1,8 @@
-using Content.Scripts.UI.Base;
+using GameCore.UI;
 using UnityEngine;
 using VContainer;
 
-namespace Content.Scripts.Factories
+namespace GameCore.Factories
 {
     public class ViewsFactory : Factory
     {

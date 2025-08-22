@@ -1,7 +1,7 @@
 ﻿using System;
 using R3;
 
-namespace Game.Scripts.Utils
+namespace GameCore.Utils
 {
     public interface IObservable : IObservable<Unit>
     {

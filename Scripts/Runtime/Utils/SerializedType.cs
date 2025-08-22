@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Content.Scripts.Utils;
 using JetBrains.Annotations;
 using TriInspector;
 using UnityEngine;
 
-namespace Game.Scripts.Utils
+namespace GameCore.Utils
 {
     [Serializable]
     public class SerializedType<TFilter> where TFilter : class

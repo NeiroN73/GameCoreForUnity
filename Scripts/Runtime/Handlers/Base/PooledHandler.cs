@@ -1,6 +1,6 @@
-namespace Content.Scripts.Entities.Base
+namespace GameCore.Handlers
 {
-    public class PooledEntity : Entity
+    public class PooledHandler : Handler
     {
         public virtual void OnGet()
         {

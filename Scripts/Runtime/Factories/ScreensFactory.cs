@@ -1,12 +1,12 @@
 ﻿using System.Linq;
-using Content.Scripts.Configs;
-using Content.Scripts.Services;
-using Content.Scripts.UI.Base;
 using Cysharp.Threading.Tasks;
+using GameCore.Configs;
+using GameCore.Services;
+using GameCore.UI;
 using UnityEngine;
 using VContainer;
 
-namespace Content.Scripts.Factories
+namespace GameCore.Factories
 {
     public class ScreensFactory : Factory, IInitializable
     {

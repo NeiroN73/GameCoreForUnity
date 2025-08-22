@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using Content.Scripts.Factories;
-using Content.Scripts.UI.Base;
-using Content.Scripts.UI.Loading;
 using Cysharp.Threading.Tasks;
+using GameCore.Factories;
+using GameCore.UI;
+using GameCore.UI.Loading;
 using VContainer;
 
-namespace Content.Scripts.Services
+namespace GameCore.Services
 {
     public class ScreensService : Service
     {

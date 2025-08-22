@@ -4,9 +4,8 @@ using JetBrains.Annotations;
 using TriInspector;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using TypeExtensions = Content.Scripts.Utils.TypeExtensions;
 
-namespace Content.Scripts.Configs
+namespace GameCore.Utils
 {
     [Serializable]
     public class AddressablePrefabByType<TFilter> where TFilter : class

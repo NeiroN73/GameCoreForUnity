@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-namespace Content.Scripts.UI.Binders
+namespace GameCore.UI
 {
     [Serializable]
     public class TextViewBinder : ViewBinder<string>

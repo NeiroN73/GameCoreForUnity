@@ -1,7 +1,7 @@
 using System;
 using R3;
 
-namespace Content.Scripts.Utils
+namespace GameCore.Utils
 {
     public static class R3Extensions
     {

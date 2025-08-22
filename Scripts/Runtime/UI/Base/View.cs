@@ -1,9 +1,9 @@
 ﻿using System;
-using Content.Scripts.Factories;
+using GameCore.Factories;
 using UnityEngine;
 using VContainer;
 
-namespace Content.Scripts.UI.Base
+namespace GameCore.UI
 {
     public abstract class View<TViewModel> : View
         where TViewModel : ViewModel, new()

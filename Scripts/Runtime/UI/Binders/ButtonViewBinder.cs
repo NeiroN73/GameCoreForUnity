@@ -1,10 +1,10 @@
 using System;
-using Content.Scripts.Utils;
+using GameCore.Utils;
 using R3;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Content.Scripts.UI.Binders
+namespace GameCore.UI
 {
     [Serializable]
     public class ButtonViewBinder : ViewBinder<ReactiveCommand>

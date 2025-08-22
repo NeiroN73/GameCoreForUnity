@@ -1,4 +1,4 @@
-namespace Content.Scripts.UI.Loading
+namespace GameCore.UI.Loading
 {
     public class LoadingViewModel : ViewModel
     {

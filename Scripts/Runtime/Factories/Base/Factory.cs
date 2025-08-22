@@ -1,4 +1,4 @@
-namespace Content.Scripts.Factories
+namespace GameCore.Factories
 {
     public abstract class Factory
     {

@@ -1,7 +1,7 @@
 using System;
 using Object = UnityEngine.Object;
 
-namespace Content.Scripts.UI
+namespace GameCore.UI
 {
     public abstract class ViewBinder<TViewModelValue> : ViewBinder
     {

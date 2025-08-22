@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Content.Scripts.Configs.Base
+namespace GameCore.Configs
 {
     public abstract class Config : ScriptableObject
     {
