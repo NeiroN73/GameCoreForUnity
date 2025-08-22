@@ -9,8 +9,6 @@ namespace GameCore.Configs
     [CreateAssetMenu(fileName = "ScreensConfig", menuName = "Configs/ScreensConfig")]
     public class ScreensConfig : Config
     {
-        [field: SerializeField] public Transform Root { get; private set; }
-
         [TableList(Draggable = true, HideAddButton = false, HideRemoveButton = false, AlwaysExpanded = false)]
         [SerializeField] private List<AddressablePrefabByType<View>> _screens;
 

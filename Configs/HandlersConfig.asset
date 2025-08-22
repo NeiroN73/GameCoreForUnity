@@ -9,10 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cf4d8df1d704d5689f3c69bd70d1cb9, type: 3}
-  m_Name: VContainerSettings
+  m_Script: {fileID: 11500000, guid: a701336e7e594c8d82b58322c4a621a4, type: 3}
+  m_Name: HandlersConfig
   m_EditorClassIdentifier: 
-  RootLifetimeScope: {fileID: 2199448016115548139, guid: 348c50dd77809234888a25e963b97cfa, type: 3}
-  EnableDiagnostics: 0
-  DisableScriptModifier: 0
-  RemoveClonePostfix: 0
+  _handlers:
+  - type: Game.Handlers.PlayerHandler
+    asset:
+      m_AssetGUID: 5b8999c64f86a7b4f8f0943ecf5aff1e
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0

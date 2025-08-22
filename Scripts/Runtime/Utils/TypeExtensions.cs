@@ -1,10 +1,9 @@
+#if UNITY_EDITOR
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using UnityEditor;
-using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace GameCore.Utils
 {
@@ -25,28 +24,10 @@ namespace GameCore.Utils
 
             return false;
         }
-
-        static Type ResolveGenericType(Type type)
-        {
-            if (type is not {IsGenericType: true}) return type;
-
-            var genericType = type.GetGenericTypeDefinition();
-            return genericType != type ? genericType : type;
-        }
-
-        static bool HasAnyInterfaces(Type type, Type interfaceType)
-        {
-            return type.GetInterfaces().Any(i => ResolveGenericType(i) == interfaceType);
-        }
         
         public static string[] FilterTypes<TFilter>() where TFilter : class
         {
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-    
-            var targetAssemblies = assemblies
-                .Where(x => x.GetTypes().Any(t => 
-                    x.FullName.StartsWith("Assembly-CSharp") || x.FullName.StartsWith("GameCore")));
-    
+            var targetAssemblies = GetTargetAssemblies();
             var filteredTypes = targetAssemblies
                 .SelectMany(assembly => assembly.GetTypes())
                 .Where(t => DefaultFilter(t, typeof(TFilter)))
@@ -65,10 +46,7 @@ namespace GameCore.Utils
             if (string.IsNullOrEmpty(fullTypeName))
                 return null;
             
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            var targetAssemblies = assemblies
-                .Where(x => x.GetTypes().Any(t => 
-                    x.FullName.StartsWith("Assembly-CSharp") || x.FullName.StartsWith("GameCore")));
+            var targetAssemblies = GetTargetAssemblies();
             foreach (var assembly in targetAssemblies)
             {
                 var type = assembly.GetType(fullTypeName);
@@ -80,10 +58,33 @@ namespace GameCore.Utils
 
             return default;
         }
+
+        private static Type ResolveGenericType(Type type)
+        {
+            if (type is not {IsGenericType: true}) return type;
+
+            var genericType = type.GetGenericTypeDefinition();
+            return genericType != type ? genericType : type;
+        }
+
+        private static bool HasAnyInterfaces(Type type, Type interfaceType)
+        {
+            return type.GetInterfaces().Any(i => ResolveGenericType(i) == interfaceType);
+        }
         
-        static bool DefaultFilter(Type type, Type filterType)
+        private static IEnumerable<Assembly> GetTargetAssemblies()
+        {
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            var targetAssemblies = assemblies
+                .Where(x => x.GetTypes().Any(t => 
+                    x.FullName.StartsWith("Assembly-CSharp") || x.FullName.StartsWith("GameCore")));
+            return targetAssemblies;
+        }
+        
+        private static bool DefaultFilter(Type type, Type filterType)
         {
             return !type.IsAbstract && !type.IsInterface && !type.IsGenericType && type.InheritsOrImplements(filterType);
         }
     }
 }
+#endif

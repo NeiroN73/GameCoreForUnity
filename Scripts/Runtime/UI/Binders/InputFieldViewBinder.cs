@@ -17,14 +17,14 @@ namespace GameCore.UI
         public override void Parse(ReactiveCommand<string> value)
         {
             _reactiveCommand = value;
-            JoinCodeInputField.onValueChanged.AddListener(OnChanged);
+            InputField.onValueChanged.AddListener(OnChanged);
         }
 
         public override void Dispose()
         {
             base.Dispose();
             
-            JoinCodeInputField.onValueChanged.RemoveListener(OnChanged);
+            InputField.onValueChanged.RemoveListener(OnChanged);
             _reactiveCommand = null;
         }
 
@@ -43,14 +43,14 @@ namespace GameCore.UI
 
         public override void Parse(string value)
         {
-            JoinCodeInputField.text = value;
+            InputField.text = value;
         }
     }
     
     [Serializable]
     public class InputFieldViewBinder<TValue> : ViewBinder<TValue>
     {
-        [SerializeField] protected TMP_InputField JoinCodeInputField;
+        [SerializeField] protected TMP_InputField InputField;
         
         public InputFieldViewBinder(string id) : base(id)
         {

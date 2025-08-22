@@ -1,20 +1,20 @@
 using UnityEngine;
-using UnityEngine.Pool;
 
 namespace GameCore.Handlers
 {
-    public class HandlerPool<THandler> where THandler : PooledHandler
+    public class ObjectPool<TObject>
+        where TObject : MonoBehaviour, IPoolable
     {
-        private readonly ObjectPool<THandler> pool;
-        private readonly THandler prefab;
+        private readonly UnityEngine.Pool.ObjectPool<TObject> pool;
+        private readonly TObject prefab;
         private readonly Transform parent;
 
-        public HandlerPool(THandler prefab, Transform parent = null, int defaultCapacity = 1, int maxSize = 10000)
+        public ObjectPool(TObject prefab, Transform parent = null, int defaultCapacity = 1, int maxSize = 10000)
         {
             this.prefab = prefab;
             this.parent = parent;
 
-            pool = new ObjectPool<THandler>(
+            pool = new UnityEngine.Pool.ObjectPool<TObject>(
                 createFunc: OnCreate,
                 actionOnGet: OnGet,
                 actionOnRelease: OnRelease,
@@ -24,32 +24,32 @@ namespace GameCore.Handlers
             );
         }
 
-        private THandler OnCreate()
+        private TObject OnCreate()
         {
-            THandler handler = Object.Instantiate(prefab, parent);
+            TObject handler = Object.Instantiate(prefab, parent);
             return handler;
         }
 
-        private void OnGet(THandler handler)
+        private void OnGet(TObject handler)
         {
             handler.gameObject.SetActive(true);
             handler.OnGet();
         }
 
-        private void OnRelease(THandler handler)
+        private void OnRelease(TObject handler)
         {
             handler.gameObject.SetActive(false);
             handler.OnReturn();
         }
 
-        private void OnDestroy(THandler handler)
+        private void OnDestroy(TObject handler)
         {
             Object.Destroy(handler.gameObject);
         }
 
-        public THandler Get() => pool.Get();
+        public TObject Get() => pool.Get();
 
-        public void Release(THandler handler) => pool.Release(handler);
+        public void Release(TObject handler) => pool.Release(handler);
 
         public void Clear() => pool.Clear();
     }
