@@ -8,14 +8,13 @@ using VContainer;
 
 namespace GameCore.Services
 {
-    public class ScreensService : Service
+    public class ScreensService : Service, ISceneChangable
     {
         [Inject] private readonly ScreensFactory _screensFactory;
         
         private readonly Dictionary<Type, View> _screensByType = new();
         private readonly Stack<View> _screensStack = new();
         
-        public View CurrentScreen { get; private set; }
         private View _loadingScreen;
 
         public async UniTask<TScreen> OpenAsync<TScreen>() where TScreen : View
@@ -26,7 +25,6 @@ namespace GameCore.Services
                 {
                     screen.Open();
                     _screensStack.Push(screen);
-                    CurrentScreen = screen;
                     return (TScreen)screen;
                 }
             }
@@ -38,7 +36,6 @@ namespace GameCore.Services
             newScreen.Open();
             _screensByType[typeof(TScreen)] = newScreen;
             _screensStack.Push(newScreen);
-            CurrentScreen = newScreen;
     
             return newScreen;
         }
@@ -52,7 +49,7 @@ namespace GameCore.Services
             else
             {
                 _loadingScreen = _screensFactory.CreateSync<TScreen>();
-                _screensByType.Add(typeof(TScreen), _loadingScreen);
+                _screensByType[typeof(TScreen)] = _loadingScreen;
             }
 
             if (_loadingScreen)
@@ -75,11 +72,36 @@ namespace GameCore.Services
             {
                 screen.Close();
                 screen.gameObject.SetActive(false);
-                if (_screensStack.Count > 0)
+            }
+        }
+        
+        public void DestroyScreens()
+        {
+            foreach (var screenPair in _screensByType)
+            {
+                var screen = screenPair.Value;
+                if (screen == null) continue;
+
+                screen.Close();
+        
+                if (screen is IDisposable disposable)
                 {
-                    CurrentScreen = _screensStack.Peek();
+                    disposable.Dispose();
+                }
+        
+                if (screen.gameObject != null)
+                {
+                    UnityEngine.Object.Destroy(screen.gameObject);
                 }
             }
+    
+            _screensByType.Clear();
+            _screensStack.Clear();
+        }
+        
+        public void SceneChanged()
+        {
+            DestroyScreens();
         }
     }
 }

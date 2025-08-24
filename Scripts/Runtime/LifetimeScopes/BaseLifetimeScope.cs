@@ -1,3 +1,6 @@
+using System.Linq;
+using GameCore.Configs;
+using UnityEngine.AddressableAssets;
 using VContainer;
 using VContainer.Unity;
 
@@ -36,6 +39,16 @@ namespace GameCore.LifetimeScopes
 
         protected virtual void RegisterServices()
         {
+        }
+        
+        protected void RegisterConfigs(AssetLabelReference assetLabelReference)
+        {
+            var configs = Addressables.LoadAssetsAsync<Config>(assetLabelReference, null)
+                .WaitForCompletion().ToList();
+            foreach (var config in configs)
+            {
+                Register(config);
+            }
         }
     }
 }

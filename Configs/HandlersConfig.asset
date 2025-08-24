@@ -19,9 +19,9 @@ MonoBehaviour:
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-  - type: Game.Handlers.SpawnerHandler
+  - type: Game.Handlers.CubeHandler
     asset:
-      m_AssetGUID: 8502f2b388a5444468261028e5600dcc
+      m_AssetGUID: c7f57c2105b99484eb5122402a480a7e
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0

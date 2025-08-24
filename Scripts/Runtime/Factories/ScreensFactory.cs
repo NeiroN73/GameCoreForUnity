@@ -1,8 +1,9 @@
-﻿using System.Linq;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using GameCore.Configs;
 using GameCore.Services;
 using GameCore.UI;
+using System.Linq;
+using GameCore.Utils;
 using UnityEngine;
 using VContainer;
 
@@ -19,21 +20,31 @@ namespace GameCore.Factories
         public async UniTask<TView> CreateAsync<TView>() where TView : View
         {
             TryCreateRootUI();
-            var data = _screensConfig.Screens.
-                FirstOrDefault(d => d.Type == typeof(TView));
-            var handle = await _assetsLoaderService.LoadAssetAsync<TView>(data.Asset);
-            var prefab = handle.GetComponent<TView>();
-            var screen = _viewsFactory.Create(prefab, _rootUI.transform);
-            screen.gameObject.SetActive(false);
+            var screenData = GetScreenData<TView>();
+            var handle = await _assetsLoaderService.LoadAssetAsync<TView>(screenData.Asset);
+            var screen = CreateScreenFromPrefab(handle.GetComponent<TView>());
             return screen;
         }
         
         public TView CreateSync<TView>() where TView : View
         {
             TryCreateRootUI();
-            var data = _screensConfig.Screens.
-                FirstOrDefault(d => d.Type == typeof(TView));
-            var prefab = _assetsLoaderService.LoadAssetSync<TView>(data.Asset);
+            var screenData = GetScreenData<TView>();
+            var prefab = _assetsLoaderService.LoadAssetSync<TView>(screenData.Asset);
+            var screen = CreateScreenFromPrefab(prefab);
+            return screen;
+        }
+        
+        private AddressablePrefabByType<View> GetScreenData<TView>() where TView : View
+        {
+            var screenData = _screensConfig.Screens
+                .FirstOrDefault(d => d.Type == typeof(TView));
+            
+            return screenData;
+        }
+        
+        private TView CreateScreenFromPrefab<TView>(TView prefab) where TView : View
+        {
             var screen = _viewsFactory.Create(prefab, _rootUI.transform);
             screen.gameObject.SetActive(false);
             return screen;
@@ -41,7 +52,7 @@ namespace GameCore.Factories
         
         private void TryCreateRootUI()
         {
-            if(_rootUI)
+            if (_rootUI != null)
                 return;
             
             _rootUI = new GameObject("RootUI");

@@ -6,7 +6,7 @@ using VContainer;
 
 namespace Content.Scripts.Installers
 {
-    public class GameCoreController : MonoBehaviour
+    public class CoreController : MonoBehaviour
     {
         [Inject] private ScenesService _scenesService;
         

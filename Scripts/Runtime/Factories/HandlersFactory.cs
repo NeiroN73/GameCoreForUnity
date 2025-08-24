@@ -27,7 +27,7 @@ namespace GameCore.Factories
             {
                 if (handler == null) continue;
 
-                var asset = _assetsLoaderService.LoadAssetSync<IHandlerable>(handler.Asset);
+                var asset = _assetsLoaderService.LoadAssetSync<IHandlerable>(handler.Asset); //TODO: сделать прелоадом
                 
                 if (!string.IsNullOrEmpty(asset.Id))
                     _handlersById[asset.Id] = asset;
@@ -44,12 +44,6 @@ namespace GameCore.Factories
                 throw new InvalidOperationException($"Handler of type {typeof(THandler)} not found in config");
 
             return Create(prefab, position, rotation, parent);
-        }
-
-        public void InitializeHandler<THandler>(THandler handler)
-            where THandler : MonoBehaviour, IHandlerable
-        {
-            _objectResolver.Inject(handler);
         }
 
         public THandler CreateById<THandler>(string id, Vector3 position = default, Quaternion rotation = default, Transform parent = null) 
@@ -69,7 +63,7 @@ namespace GameCore.Factories
                 throw new ArgumentNullException(nameof(prefab));
 
             var handler = Object.Instantiate(prefab, position, rotation, parent);
-            _objectResolver.Inject(handler);
+            InitializeHandler(handler);
             return handler;
         }
         
@@ -93,6 +87,12 @@ namespace GameCore.Factories
                 return typedHandler;
             }
             return null;
+        }
+        
+        public void InitializeHandler<THandler>(THandler handler)
+            where THandler : MonoBehaviour, IHandlerable
+        {
+            _objectResolver.Inject(handler);
         }
     }
 }
