@@ -12,9 +12,14 @@ namespace GameCore.Factories
             where TView : View
         {
             var view = Object.Instantiate(prefab, parent);
+            InitializeView(view);
+            return view;
+        }
+
+        public void InitializeView(View view)
+        {
             _objectResolver.Inject(view);
             view.Initialize();
-            return view;
         }
     }
 }

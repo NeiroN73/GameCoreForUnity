@@ -37,12 +37,18 @@ namespace GameCore.UI
         
         public virtual void Open()
         {
-            gameObject.SetActive(true);
+            if (gameObject)
+            {
+                gameObject.SetActive(true);
+            }
         }
 
         public virtual void Close()
         {
-            gameObject.SetActive(false);
+            if (gameObject)
+            {
+                gameObject.SetActive(false);
+            }
         }
 
         public virtual void Dispose()

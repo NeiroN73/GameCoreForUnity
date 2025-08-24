@@ -13,9 +13,7 @@ namespace GameCore.Utils
 
         public Type Type => Type.GetType(type);
 
-#if UNITY_EDITOR
         [UsedImplicitly]
         private IEnumerable<string> GetTypes() => TypeExtensions.FilterTypes<TFilter>();
-#endif
     }
 }

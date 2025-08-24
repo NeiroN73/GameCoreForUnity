@@ -18,7 +18,7 @@ namespace GameCore.Factories
         private Dictionary<string, IHandlerable> _handlersById;
         private Dictionary<Type, IHandlerable> _handlersByType;
 
-        public async void Initialize()
+        public void Initialize()
         {
             _handlersById = new();
             _handlersByType = new();
@@ -27,12 +27,12 @@ namespace GameCore.Factories
             {
                 if (handler == null) continue;
 
-                var asset = await _assetsLoaderService.LoadAssetAsync<GameObject>(handler.Asset);
+                var asset = _assetsLoaderService.LoadAssetSync<IHandlerable>(handler.Asset);
                 
-                // if (!string.IsNullOrEmpty(asset.Id))
-                //     _handlersById[asset.Id] = asset;
-                //
-                // _handlersByType[handler.GetType()] = asset;
+                if (!string.IsNullOrEmpty(asset.Id))
+                    _handlersById[asset.Id] = asset;
+                
+                _handlersByType[asset.GetType()] = asset;
             }
         }
         
@@ -44,6 +44,12 @@ namespace GameCore.Factories
                 throw new InvalidOperationException($"Handler of type {typeof(THandler)} not found in config");
 
             return Create(prefab, position, rotation, parent);
+        }
+
+        public void InitializeHandler<THandler>(THandler handler)
+            where THandler : MonoBehaviour, IHandlerable
+        {
+            _objectResolver.Inject(handler);
         }
 
         public THandler CreateById<THandler>(string id, Vector3 position = default, Quaternion rotation = default, Transform parent = null) 

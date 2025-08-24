@@ -6,7 +6,7 @@ namespace GameCore.Factories
     public class ViewModelFactory : Factory
     {
         [Inject] private IObjectResolver _objectResolver;
-
+        
         public T Create<T>(params ViewBinder[] viewBinders) where T : ViewModel, new()
         {
             var viewModel = new T();

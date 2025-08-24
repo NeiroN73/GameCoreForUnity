@@ -22,10 +22,13 @@ namespace GameCore.Services
         {
             if (_screensByType.TryGetValue(typeof(TScreen), out var screen))
             {
-                screen.Open();
-                _screensStack.Push(screen);
-                CurrentScreen = screen;
-                return (TScreen)screen;
+                if (screen)
+                {
+                    screen.Open();
+                    _screensStack.Push(screen);
+                    CurrentScreen = screen;
+                    return (TScreen)screen;
+                }
             }
             
             OpenLoading<LoadingScreen>();
@@ -33,7 +36,7 @@ namespace GameCore.Services
             CloseLoading();
             
             newScreen.Open();
-            _screensByType.Add(typeof(TScreen), newScreen);
+            _screensByType[typeof(TScreen)] = newScreen;
             _screensStack.Push(newScreen);
             CurrentScreen = newScreen;
     

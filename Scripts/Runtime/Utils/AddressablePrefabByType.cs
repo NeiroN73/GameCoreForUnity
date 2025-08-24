@@ -17,11 +17,7 @@ namespace GameCore.Utils
         public Type Type => TypeExtensions.GetType(type);
         public AssetReferenceGameObject Asset => asset;
 
-#if UNITY_EDITOR
-
         [UsedImplicitly]
         private IEnumerable<string> GetTypes() => TypeExtensions.FilterTypes<TFilter>();
-
-#endif
     }
 }

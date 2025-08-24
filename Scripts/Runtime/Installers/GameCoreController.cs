@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using GameCore.LifetimeScopes;
 using GameCore.Services;
 using UnityEngine;
 using VContainer;
@@ -9,9 +8,7 @@ namespace Content.Scripts.Installers
 {
     public class GameCoreController : MonoBehaviour
     {
-        [SerializeField] private GameCoreLifetimeScope _coreLifetimeScope;
-        
-        //[Inject] private ScenesService _scenesService;
+        [Inject] private ScenesService _scenesService;
         
         private IInitializable[] _initializables;
         private ISceneChangable[] _sceneChangables;
@@ -25,18 +22,16 @@ namespace Content.Scripts.Installers
             _tickables = resolver.Resolve<IEnumerable<ITickable>>().ToArray();
         }
 
-        private void Awake()
+        protected virtual void Awake()
         {
             DontDestroyOnLoad(this);
-            
-            _coreLifetimeScope.Build();
 
             foreach (var initializable in _initializables)
             {
                 initializable.Initialize();
             }
 
-            //_scenesService.SceneChanged.Subscribe(SceneChanged);
+            _scenesService.SceneChanged.Subscribe(SceneChanged);
         }
 
         private void SceneChanged()
@@ -51,7 +46,7 @@ namespace Content.Scripts.Installers
         {
             foreach (var tickable in _tickables)
             {
-                tickable.Tick();
+                tickable.Tick(Time.deltaTime);
             }
         }
     }

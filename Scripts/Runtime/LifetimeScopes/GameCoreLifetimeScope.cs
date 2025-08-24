@@ -9,11 +9,11 @@ namespace GameCore.LifetimeScopes
 {
     public class GameCoreLifetimeScope : BaseLifetimeScope
     {
-        [SerializeField] private AssetLabelReference _configsAssetLabel;
+        [SerializeField] private AssetLabelReference _coreConfigsAssetLabel;
 
         protected override void RegisterConfigs()
         {
-            var configs = Addressables.LoadAssetsAsync<Config>(_configsAssetLabel, null)
+            var configs = Addressables.LoadAssetsAsync<Config>(_coreConfigsAssetLabel, null)
                 .WaitForCompletion().ToList();
             foreach (var config in configs)
             {
@@ -23,17 +23,18 @@ namespace GameCore.LifetimeScopes
         
         protected override void RegisterFactories()
         {
-            // Register<ViewModelFactory>();
-            // Register<ViewsFactory>();
-            // Register<ScreensFactory>();
-            // Register<HandlersFactory>();
+            Register<ViewModelFactory>();
+            Register<ViewsFactory>();
+            Register<ScreensFactory>();
+            Register<HandlersFactory>();
         }
 
         protected override void RegisterServices()
         {
-            // Register<AssetsLoaderService>();
-            // Register<ScreensService>();
-            // Register<ScenesService>();
+            Register<AssetsLoaderService>();
+            Register<TickService>();
+            Register<ScreensService>();
+            Register<ScenesService>();
         }
     }
 }

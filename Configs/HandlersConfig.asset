@@ -15,7 +15,13 @@ MonoBehaviour:
   _handlers:
   - type: Game.Handlers.PlayerHandler
     asset:
-      m_AssetGUID: 5b8999c64f86a7b4f8f0943ecf5aff1e
+      m_AssetGUID: e433445c1ec8d2c4dbc61db7e80bab56
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - type: Game.Handlers.SpawnerHandler
+    asset:
+      m_AssetGUID: 8502f2b388a5444468261028e5600dcc
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0

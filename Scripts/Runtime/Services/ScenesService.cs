@@ -19,7 +19,7 @@ namespace GameCore.Services
         public async UniTask LoadSceneAsync(string name, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
         {
             _screensService.OpenLoading<LoadingScreen>();
-            await Addressables.LoadSceneAsync(name, loadSceneMode);
+            await SceneManager.LoadSceneAsync(name, loadSceneMode);
             _sceneChanged.OnNext();
             _screensService.CloseLoading();
         }

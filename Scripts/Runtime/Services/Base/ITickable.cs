@@ -4,7 +4,6 @@ namespace GameCore.Services
 {
     public interface ITickable
     {
-        ReactiveCommand<float> Ticked { get; }
-        void Tick();
+        void Tick(float deltaTime);
     }
 }

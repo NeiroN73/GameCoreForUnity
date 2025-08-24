@@ -19,7 +19,7 @@ MonoBehaviour:
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-  - type: Game.UI.MainMenuScreen
+  - type: Game.UI.MainMenu.MainMenuScreen
     asset:
       m_AssetGUID: 32b63698316534143b1005ad884bbb02
       m_SubObjectName: 
