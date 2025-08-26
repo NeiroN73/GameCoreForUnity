@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using GameCore.Factories;
 using GameCore.UI.Loading;
 using GameCore.Utils;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using VContainer;
 
