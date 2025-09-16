@@ -14,15 +14,14 @@ namespace GameCore.SensorActionMachine
 
     [Serializable]
     public abstract class State<TEntity> : State
-        where TEntity : MonoBehaviour
     {
-        protected TEntity Entity;
-        protected SensorActionMachine<TEntity> ActionMachine;
-
-        public virtual void Initialize(TEntity entity, SensorActionMachine<TEntity> actionMachine)
-        {
-            Entity = entity;
-            ActionMachine = actionMachine;
-        }
+        // protected TEntity Entity;
+        // protected SensorActionMachine<TEntity> ActionMachine;
+        //
+        // public virtual void Initialize(TEntity entity, SensorActionMachine<TEntity> actionMachine)
+        // {
+        //     Entity = entity;
+        //     ActionMachine = actionMachine;
+        // }
     }
 }

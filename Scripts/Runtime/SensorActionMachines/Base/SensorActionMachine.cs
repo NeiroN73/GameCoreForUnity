@@ -1,31 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace GameCore.SensorActionMachine
 {
-    public abstract class SensorActionMachine<TEntity>
-        where TEntity : MonoBehaviour
+    public abstract class SensorActionMachine
     {
-        protected abstract List<StateData<TEntity>> StateDatas { get; }
-        protected abstract List<Target> Targets { get; }
-        protected abstract Blackboard Blackboard { get; }
+        protected abstract List<SensorActionState> StateDatas { get; set;  }
+        protected abstract Blackboard Blackboard { get; set; }
         
-        private Sequence<TEntity> _currentSequence;
-        private Dictionary<string, Sensor<TEntity>> _currentSensors = new();
+        private SequenceActions _currentSequenceActions;
+        private Dictionary<string, Sensor> _currentSensors = new();
 
-        private TEntity _entity;
+        private MonoBehaviour _entity;
         
-        public virtual void Initialize(TEntity entity)
+        public virtual void Initialize(MonoBehaviour entity)
         {
             _entity = entity;
             
             foreach (var stateData in StateDatas)
             {
-                foreach (var action in stateData.Actions)
+                foreach (var parallelAction in stateData.ActionSequence.ParallelActions)
                 {
-                    action.Initialize(entity, this);
+                    foreach (var action in parallelAction.Actions)
+                    {
+                        action.Initialize(entity, this, Blackboard);
+                    }
                 }
                 foreach (var sensor in stateData.Sensors)
                 {
@@ -59,67 +59,24 @@ namespace GameCore.SensorActionMachine
             return null;
         }
         
-        public TTarget GetTarget<TTarget>() where TTarget : Target
+        public bool HasReachedTarget(Vector3 targetPosition, float threshold = 0.1f)
         {
-            foreach (var target in Targets)
-            {
-                if (target is TTarget targetOfType)
-                {
-                    return targetOfType;
-                }
-            }
-            return null;
-        }
-        
-        public Target GetTarget()
-        {
-            foreach (var target in Targets)
-            {
-                if (target is Target targetOfType)
-                {
-                    return targetOfType;
-                }
-            }
-            return null;
-        }
-
-        public float GetDistanceToTarget()
-        {
-            var target = GetTarget();
-            return Vector3.Distance(_entity.transform.position, target.Position.Value);
-        }
-        
-        public bool HasReachedTarget(float threshold = 0.1f)
-        {
-            var target = GetTarget();
-            if (target == null || _entity == null || target.Position == null)
+            if (_entity == null)
                 return false;
     
             var sqrThreshold = threshold * threshold;
-            var sqrDistance = (_entity.transform.position - target.Position.Value).sqrMagnitude;
+            var sqrDistance = (_entity.transform.position - targetPosition).sqrMagnitude;
     
             return sqrDistance <= sqrThreshold;
-        }
-        
-        public Target GetTarget(Type type)
-        {
-            foreach (var target in Targets)
-            {
-                if (target.GetType() == type)
-                {
-                    return target;
-                }
-            }
-            return null;
         }
         
         public void Tick()
         {
             ProcessSensors();
             
-            if (_currentSequence != null)
+            if (_currentSequenceActions != null)
             {
-                _currentSequence.Tick(Time.deltaTime);
+                _currentSequenceActions.Tick(Time.deltaTime);
             }
         }
 
@@ -132,7 +89,7 @@ namespace GameCore.SensorActionMachine
                 CheckSensors(stateData.Sensors);
             }
             
-            var matchingStates = new List<StateData<TEntity>>();
+            var matchingStates = new List<SensorActionState>();
             
             foreach (var stateData in StateDatas)
             {
@@ -157,11 +114,11 @@ namespace GameCore.SensorActionMachine
                     .OrderByDescending(s => s.Priority)
                     .First();
                 
-                TryChangeState(new Sequence<TEntity>(highestPriorityState.Actions));
+                TryChangeState(highestPriorityState.ActionSequence);
             }
         }
 
-        private void CheckSensors(List<Sensor<TEntity>> sensors)
+        private void CheckSensors(List<Sensor> sensors)
         {
             foreach (var sensor in sensors)
             {
@@ -178,15 +135,15 @@ namespace GameCore.SensorActionMachine
             }
         }
 
-        public void TryChangeState(Sequence<TEntity> sequence)
+        public void TryChangeState(SequenceActions sequenceActions)
         {
-            if (_currentSequence == sequence)
+            if (_currentSequenceActions == sequenceActions)
                 return;
             
-            _currentSequence = sequence;
-            _currentSequence.Execute().Forget();
+            _currentSequenceActions = sequenceActions;
+            _currentSequenceActions.Execute().Forget();
 
-            Debug.Log($"State changed to: {(sequence != null ? sequence.GetType().Name : "None")}");
+            Debug.Log($"State changed to: {(sequenceActions != null ? sequenceActions.GetType().Name : "None")}");
         }
     }
 }
