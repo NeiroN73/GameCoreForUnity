@@ -1,7 +1,13 @@
-﻿namespace Game.Scripts.Editor.GoogleSheetsImporter
+﻿namespace GameCore.GoogleSheetsImporter
 {
-    public interface IGoogleSheetParser
+    public abstract class GoogleSheetParser<T> : GoogleSheetParser
     {
-        public void Parse(string header, string token);
+        public T Data { get; }
+    }
+
+    public abstract class GoogleSheetParser
+    {
+        public abstract string SheetName { get; }
+        public abstract void Parse(string header, string token);
     }
 }

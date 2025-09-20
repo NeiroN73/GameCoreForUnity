@@ -25,11 +25,13 @@ namespace GameCore.SensorActionMachine
                     foreach (var action in parallelAction.Actions)
                     {
                         action.Initialize(entity, this, Blackboard);
+                        action.Initialize();
                     }
                 }
                 foreach (var sensor in stateData.Sensors)
                 {
                     sensor.Initialize(entity, this, Blackboard);
+                    sensor.Initialize();
                 }
 
                 stateData.SensorsById = stateData.Sensors.ToDictionary(s => s.Id);

@@ -6,7 +6,7 @@ using Google.Apis.Sheets.v4;
 using Google.Apis.Sheets.v4.Data;
 using UnityEngine;
 
-namespace Game.Scripts.Editor.GoogleSheetsImporter
+namespace GameCore.GoogleSheetsImporter
 {
     public class GoogleSheetsImporter
     {
@@ -30,7 +30,7 @@ namespace Game.Scripts.Editor.GoogleSheetsImporter
             });
         }
     
-        public async Task DownloadAndParseSheet(string sheetName, IGoogleSheetParser parser)
+        public async Task DownloadAndParseSheet(string sheetName, GoogleSheetParser parser)
         {
             Debug.Log($"Starting downloading sheet (${sheetName})...");
 

@@ -13,7 +13,7 @@ namespace GameCore.SensorActionMachine
         {
             return _fields.TryGetValue(fieldName, out var field) && field is BlackboardField<T> typedField
                 ? typedField
-                : default;
+                : null;
         }
 
         protected void SetFields(params BlackboardField[] fields)
@@ -27,6 +27,7 @@ namespace GameCore.SensorActionMachine
         }
     }
 
+    [Serializable]
     public class BlackboardField<T> : BlackboardField
     {
         public T Value;
@@ -36,12 +37,37 @@ namespace GameCore.SensorActionMachine
         }
     }
     
+    [Serializable]
     public class BlackboardField
     {
         public string Name;
     }
+
+    [Serializable]
+    public class BlackboardFieldHandle<T, U> : BlackboardFieldHandle
+    {
+        [Dropdown(nameof(GetFields))] public string FieldName;
+
+        protected List<string> GetFields()
+        {
+            return BlackboardFieldsUtils.GetFields(typeof(U));
+        }
+        
+        private BlackboardField<T> _field;
+        public T Value => _field.Value;
+
+        public override void Initialize(Blackboard blackboard)
+        {
+            _field = blackboard.GetField<T>(FieldName);
+        }
+    }
+
+    public abstract class BlackboardFieldHandle
+    {
+        public abstract void Initialize(Blackboard blackboard);
+    }
     
-    public static class BlackboardFields
+    public static class BlackboardFieldsUtils
     {
         private static readonly Dictionary<Type, List<string>> _cachedFields = new();
     
@@ -72,12 +98,5 @@ namespace GameCore.SensorActionMachine
         {
             _cachedFields.Clear();
         }
-    }
-
-    [Serializable]
-    public abstract class BlackboardDropdown
-    {
-        [Dropdown(nameof(GetFields))] public string FieldName;
-        protected abstract List<string> GetFields();
     }
 }
