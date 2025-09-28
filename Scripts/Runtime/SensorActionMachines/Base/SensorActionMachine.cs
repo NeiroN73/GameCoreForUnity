@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using GameCore.Handlers;
 using UnityEngine;
 
 namespace GameCore.SensorActionMachine
 {
     public abstract class SensorActionMachine
     {
-        protected abstract List<SensorActionState> StateDatas { get; set;  }
+        protected abstract List<SensorActionState> StateDatas { get; set; }
         protected abstract Blackboard Blackboard { get; set; }
         
         private SequenceActions _currentSequenceActions;
@@ -14,7 +15,7 @@ namespace GameCore.SensorActionMachine
 
         private MonoBehaviour _entity;
         
-        public virtual void Initialize(MonoBehaviour entity)
+        public virtual void Initialize(EntityMonoBehaviour entity)
         {
             _entity = entity;
             

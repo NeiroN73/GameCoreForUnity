@@ -34,9 +34,7 @@ namespace GameCore.GoogleSheetsImporter
         {
             Debug.Log($"Starting downloading sheet (${sheetName})...");
 
-            // Define the range of the table to download
             var range = $"{sheetName}!A1:Z";
-            // Make the request to Google Sheets API
             var request = _service.Spreadsheets.Values.Get(_spreadsheetId, range);
 
             ValueRange response;
@@ -50,7 +48,6 @@ namespace GameCore.GoogleSheetsImporter
                 return;
             }
 
-            // Parse the received data
             if (response != null && response.Values != null)
             {
                 var tableArray = response.Values;
