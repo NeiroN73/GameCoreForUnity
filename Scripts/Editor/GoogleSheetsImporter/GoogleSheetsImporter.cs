@@ -59,6 +59,8 @@ namespace GameCore.GoogleSheetsImporter
                     _headers.Add(cell.ToString());
                 }
 
+                parser.Clear();
+                
                 var rowsCount = tableArray.Count;
                 for (var i = 1; i < rowsCount; i++)
                 {

@@ -93,10 +93,12 @@ namespace GameCore.SensorActionMachine
             return fields;
         }
     
+#if UNITY_EDITOR
         [UnityEditor.Callbacks.DidReloadScripts]
         public static void ClearCache()
         {
             _cachedFields.Clear();
         }
+#endif
     }
 }

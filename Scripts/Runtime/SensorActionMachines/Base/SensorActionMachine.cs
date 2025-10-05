@@ -7,31 +7,34 @@ namespace GameCore.SensorActionMachine
 {
     public abstract class SensorActionMachine
     {
-        protected abstract List<SensorActionState> StateDatas { get; set; }
+        private List<SensorActionState> _stateDatas { get; set; } = new();
         protected abstract Blackboard Blackboard { get; set; }
         
         private SequenceActions _currentSequenceActions;
         private Dictionary<string, Sensor> _currentSensors = new();
 
         private MonoBehaviour _entity;
+
+        public abstract List<SensorActionState> GetStates(CreatureMonoBehaviour creature);
         
-        public virtual void Initialize(EntityMonoBehaviour entity)
+        public void Initialize(CreatureMonoBehaviour creature)
         {
-            _entity = entity;
-            
-            foreach (var stateData in StateDatas)
+            _entity = creature;
+
+            _stateDatas = GetStates(creature);
+            foreach (var stateData in _stateDatas)
             {
                 foreach (var parallelAction in stateData.ActionSequence.ParallelActions)
                 {
                     foreach (var action in parallelAction.Actions)
                     {
-                        action.Initialize(entity, this, Blackboard);
+                        action.Initialize(creature, this, Blackboard);
                         action.Initialize();
                     }
                 }
                 foreach (var sensor in stateData.Sensors)
                 {
-                    sensor.Initialize(entity, this, Blackboard);
+                    sensor.Initialize(creature, this, Blackboard);
                     sensor.Initialize();
                 }
 
@@ -41,7 +44,7 @@ namespace GameCore.SensorActionMachine
 
         public void Disable()
         {
-            foreach (var stateData in StateDatas)
+            foreach (var stateData in _stateDatas)
             {
                 foreach (var sensor in stateData.Sensors)
                 {
@@ -87,14 +90,14 @@ namespace GameCore.SensorActionMachine
         {
             _currentSensors.Clear();
             
-            foreach (var stateData in StateDatas)
+            foreach (var stateData in _stateDatas)
             {
                 CheckSensors(stateData.Sensors);
             }
             
             var matchingStates = new List<SensorActionState>();
             
-            foreach (var stateData in StateDatas)
+            foreach (var stateData in _stateDatas)
             {
                 int count = 0;
                 foreach (var (id, sensor) in _currentSensors)
