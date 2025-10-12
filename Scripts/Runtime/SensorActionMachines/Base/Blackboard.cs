@@ -54,7 +54,11 @@ namespace GameCore.SensorActionMachine
         }
         
         private BlackboardField<T> _field;
-        public T Value => _field.Value;
+        public T Value
+        {
+            get => _field.Value;
+            set => _field.Value = value;
+        }
 
         public override void Initialize(Blackboard blackboard)
         {

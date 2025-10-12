@@ -11,6 +11,6 @@ namespace GameCore.SensorActionMachine
         
         public virtual void Disable() {}
         public abstract bool Check();
-        public virtual void Initialize() {}
+        protected virtual void Initialize() {}
     }
 }

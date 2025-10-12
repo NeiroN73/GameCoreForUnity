@@ -11,7 +11,7 @@ namespace GameCore.SensorActionMachine
             Blackboard blackboard);
         public abstract UniTask Execute();
         
-        public virtual void Initialize() {}
+        protected virtual void Initialize() {}
         public virtual void Enter() {}
         public virtual void Tick(float deltaTime) {}
         public virtual void Exit() {}
