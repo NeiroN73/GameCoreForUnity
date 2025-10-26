@@ -8,7 +8,7 @@ namespace GameCore.SensorActionMachine
     public abstract class SensorActionMachine
     {
         private List<SensorActionState> _stateDatas { get; set; } = new();
-        protected abstract Blackboard Blackboard { get; set; }
+        public Blackboard Blackboard { get; private set; }
         
         private SequenceActions _currentSequenceActions;
         private Dictionary<string, Sensor> _currentSensors = new();
@@ -17,9 +17,10 @@ namespace GameCore.SensorActionMachine
 
         public abstract List<SensorActionState> GetStates(CreatureMonoBehaviour creature);
         
-        public void Initialize(CreatureMonoBehaviour creature)
+        public void Initialize(CreatureMonoBehaviour creature, Blackboard blackboard)
         {
             _entity = creature;
+            Blackboard = blackboard;
 
             _stateDatas = GetStates(creature);
             foreach (var stateData in _stateDatas)

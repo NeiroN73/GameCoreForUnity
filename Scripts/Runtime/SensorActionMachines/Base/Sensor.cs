@@ -6,7 +6,7 @@ namespace GameCore.SensorActionMachine
     [Serializable]
     public abstract class Sensor
     {
-        public abstract string Id { get; }
+        public string Id { get; protected set; }
         public abstract void Initialize(MonoBehaviour entity, SensorActionMachine actionMachine, Blackboard blackboard);
         
         public virtual void Disable() {}

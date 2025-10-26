@@ -56,7 +56,7 @@ namespace GameCore.SensorActionMachine
         private BlackboardField<T> _field;
         public T Value
         {
-            get => _field.Value;
+            get => _field != null ? _field.Value : default;
             set => _field.Value = value;
         }
 
