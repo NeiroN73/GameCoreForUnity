@@ -1,4 +1,5 @@
 ﻿using System;
+using Game.Creatures;
 using GameCore.Factories;
 using UnityEngine;
 using VContainer;
@@ -31,7 +32,7 @@ namespace GameCore.UI
         }
     }
 
-    public abstract class View : MonoBehaviour, IDisposable
+    public abstract class View : Creature, IDisposable
     {
         public abstract void Initialize();
         

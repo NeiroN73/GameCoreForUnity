@@ -23,5 +23,10 @@ namespace GameCore.Services
                 _tickables[i].Tick(deltaTime);
             }
         }
+
+        public void UnregisterTick(ITickable tickable)
+        {
+            _tickables.Remove(tickable);
+        }
     }
 }

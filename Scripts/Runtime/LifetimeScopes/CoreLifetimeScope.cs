@@ -19,7 +19,7 @@ namespace GameCore.LifetimeScopes
             Register<ViewModelFactory>();
             Register<ViewsFactory>();
             Register<ScreensFactory>();
-            Register<HandlersFactory>();
+            Register<CreaturesFactory>();
         }
 
         protected override void RegisterServices()

@@ -1,4 +1,4 @@
-namespace GameCore.Handlers
+namespace GameCore.Creatures
 {
     public interface IPoolable
     {

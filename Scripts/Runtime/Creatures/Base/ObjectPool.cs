@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace GameCore.Handlers
+namespace GameCore.Creatures
 {
     public class ObjectPool<TObject>
         where TObject : MonoBehaviour, IPoolable
