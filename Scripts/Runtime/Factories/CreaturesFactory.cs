@@ -77,7 +77,7 @@ namespace GameCore.Factories
             return null;
         }
         
-        private  TCreature GetCreatureById<TCreature>(string id) where TCreature : MonoBehaviour
+        private TCreature GetCreatureById<TCreature>(string id) where TCreature : MonoBehaviour
         {
             if (string.IsNullOrEmpty(id)) return null;
         

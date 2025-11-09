@@ -13,9 +13,10 @@ namespace GameCore.LifetimeScopes
         protected override void Configure(IContainerBuilder builder)
         {
             Builder = builder;
-            
+
             RegisterConfigs();
             RegisterFactories();
+            RegisterStages();
             RegisterServices();
         }
         
@@ -38,6 +39,10 @@ namespace GameCore.LifetimeScopes
         }
 
         protected virtual void RegisterServices()
+        {
+        }
+
+        protected virtual void RegisterStages()
         {
         }
         

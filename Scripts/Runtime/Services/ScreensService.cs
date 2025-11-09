@@ -8,15 +8,21 @@ using VContainer;
 
 namespace GameCore.Services
 {
-    public class ScreensService : Service, ISceneChangable
+    public class ScreensService : Service, IInitializable
     {
         [Inject] private readonly ScreensFactory _screensFactory;
+        [Inject] private readonly ScenesService _scenesService;
         
         private readonly Dictionary<Type, View> _screensByType = new();
         private readonly Stack<View> _screensStack = new();
         
         private View _loadingScreen;
 
+        public void Initialize()
+        {
+            _scenesService.SceneChanged.Subscribe(DestroyScreens);
+        }
+        
         public async UniTask<TScreen> OpenAsync<TScreen>() where TScreen : View
         {
             if (_screensByType.TryGetValue(typeof(TScreen), out var screen))
@@ -97,11 +103,6 @@ namespace GameCore.Services
     
             _screensByType.Clear();
             _screensStack.Clear();
-        }
-        
-        public void SceneChanged()
-        {
-            DestroyScreens();
         }
     }
 }
