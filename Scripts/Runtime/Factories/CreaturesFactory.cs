@@ -62,9 +62,9 @@ namespace GameCore.Factories
             if (prefab == null)
                 throw new ArgumentNullException(nameof(prefab));
 
-            var handler = Object.Instantiate(prefab, position, rotation, parent);
-            InitializeCreature(handler);
-            return handler;
+            var creature = Object.Instantiate(prefab, position, rotation, parent);
+            InitializeCreature(creature);
+            return creature;
         }
         
         private TCreature GetCreature<TCreature>() where TCreature : MonoBehaviour
