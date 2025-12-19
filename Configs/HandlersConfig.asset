@@ -12,4 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a701336e7e594c8d82b58322c4a621a4, type: 3}
   m_Name: HandlersConfig
   m_EditorClassIdentifier: 
-  _handlers: []
+  _behaviours:
+  - Id: bob
+    Asset:
+      m_AssetGUID: e433445c1ec8d2c4dbc61db7e80bab56
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0

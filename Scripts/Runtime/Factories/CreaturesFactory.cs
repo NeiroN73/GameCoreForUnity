@@ -12,7 +12,7 @@ namespace GameCore.Factories
     public class CreaturesFactory : Factory, IInitializable
     {
         [Inject] private IObjectResolver _objectResolver;
-        [Inject] private CreaturesConfig _creaturesConfig;
+        [Inject] private BehavioursConfig behavioursConfig;
         [Inject] private AssetsLoaderService _assetsLoaderService;
 
         private Dictionary<string, ICreature> _creaturesById;
@@ -23,7 +23,7 @@ namespace GameCore.Factories
             _creaturesById = new();
             _creaturesByType = new();
         
-            foreach (var handler in _creaturesConfig.Creatures)
+            foreach (var handler in behavioursConfig.Behaviours)
             {
                 if (handler == null) continue;
 
