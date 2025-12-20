@@ -15,8 +15,8 @@ namespace GameCore.Factories
         [Inject] private BehavioursConfig behavioursConfig;
         [Inject] private AssetsLoaderService _assetsLoaderService;
 
-        private Dictionary<string, ICreature> _creaturesById;
-        private Dictionary<Type, ICreature> _creaturesByType;
+        private Dictionary<string, IBehaviour> _creaturesById;
+        private Dictionary<Type, IBehaviour> _creaturesByType;
 
         public void Initialize()
         {
@@ -27,7 +27,7 @@ namespace GameCore.Factories
             {
                 if (handler == null) continue;
 
-                var asset = _assetsLoaderService.LoadAssetSync<ICreature>(handler.Asset); //TODO: сделать прелоадом
+                var asset = _assetsLoaderService.LoadAssetSync<IBehaviour>(handler.Asset); //TODO: сделать прелоадом
                 
                 if (!string.IsNullOrEmpty(asset.Id))
                     _creaturesById[asset.Id] = asset;
@@ -37,7 +37,7 @@ namespace GameCore.Factories
         }
         
         public TCreature Create<TCreature>(Vector3 position = default, Quaternion rotation = default, Transform parent = null) 
-            where TCreature : MonoBehaviour, ICreature
+            where TCreature : MonoBehaviour, IBehaviour
         {
             var prefab = GetCreature<TCreature>();
             if (prefab == null)
@@ -47,7 +47,7 @@ namespace GameCore.Factories
         }
 
         public TCreature CreateById<TCreature>(string id, Vector3 position = default, Quaternion rotation = default, Transform parent = null) 
-            where TCreature : MonoBehaviour, ICreature
+            where TCreature : MonoBehaviour, IBehaviour
         {
             var prefab = GetCreatureById<TCreature>(id);
             if (prefab == null)
@@ -57,7 +57,7 @@ namespace GameCore.Factories
         }
 
         public TCreature Create<TCreature>(TCreature prefab, Vector3 position = default, Quaternion rotation = default, Transform parent = null) 
-            where TCreature : MonoBehaviour, ICreature
+            where TCreature : MonoBehaviour, IBehaviour
         {
             if (prefab == null)
                 throw new ArgumentNullException(nameof(prefab));
@@ -90,7 +90,7 @@ namespace GameCore.Factories
         }
         
         public void InitializeCreature<TCreature>(TCreature creature)
-            where TCreature : MonoBehaviour, ICreature
+            where TCreature : MonoBehaviour, IBehaviour
         {
             _objectResolver.Inject(creature);
         }

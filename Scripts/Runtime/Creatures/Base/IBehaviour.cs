@@ -1,6 +1,6 @@
 namespace GameCore.Creatures
 {
-    public interface ICreature
+    public interface IBehaviour
     {
         public string Id { get; }
     }

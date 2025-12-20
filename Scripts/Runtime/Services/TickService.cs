@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace GameCore.Services
 {
-    public class TickService : Service, ITickable
+    public class TickService : Service
     {
         private List<ITickable> _tickables = new();
         

@@ -3,6 +3,7 @@ using Game.Creatures;
 using GameCore.Factories;
 using UnityEngine;
 using VContainer;
+using Behaviour = Game.Creatures.Behaviour;
 
 namespace GameCore.UI
 {
@@ -32,7 +33,7 @@ namespace GameCore.UI
         }
     }
 
-    public abstract class View : Creature, IDisposable
+    public abstract class View : Behaviour, IDisposable
     {
         public abstract void Initialize();
         

@@ -15,9 +15,7 @@ namespace GameCore.LifetimeScopes
             Builder = builder;
 
             RegisterConfigs();
-            RegisterFactories();
-            RegisterStages();
-            RegisterServices();
+            RegisterSystems();
         }
         
         protected void Register<T>() where T : class
@@ -34,18 +32,10 @@ namespace GameCore.LifetimeScopes
         {
         }
         
-        protected  virtual void RegisterFactories()
+        protected virtual void RegisterSystems()
         {
         }
 
-        protected virtual void RegisterServices()
-        {
-        }
-
-        protected virtual void RegisterStages()
-        {
-        }
-        
         protected void RegisterConfigs(AssetLabelReference assetLabelReference)
         {
             var configs = Addressables.LoadAssetsAsync<Config>(assetLabelReference, null)

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game.Creatures
 {
-    public abstract class Creature : MonoBehaviour, ICreature
+    public abstract class Behaviour : MonoBehaviour, IBehaviour
     {
         public void Inject()
         {

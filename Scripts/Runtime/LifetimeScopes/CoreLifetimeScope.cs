@@ -14,16 +14,13 @@ namespace GameCore.LifetimeScopes
             RegisterConfigs(_coreConfigsAssetLabel);
         }
         
-        protected override void RegisterFactories()
+        protected override void RegisterSystems()
         {
             Register<ViewModelFactory>();
             Register<ViewsFactory>();
             Register<ScreensFactory>();
             Register<CreaturesFactory>();
-        }
-
-        protected override void RegisterServices()
-        {
+            
             Register<AssetsLoaderService>();
             Register<TickService>();
             Register<ScreensService>();
