@@ -1,7 +1,5 @@
 ﻿using System;
-using Game.Creatures;
 using GameCore.Factories;
-using UnityEngine;
 using VContainer;
 using Behaviour = Game.Creatures.Behaviour;
 
@@ -12,16 +10,22 @@ namespace GameCore.UI
     {
         [Inject] private ViewModelFactory _viewModelFactory;
 
-        private ViewBinder[] _viewBinders;
+        private Binder[] _viewBinders;
         public TViewModel ViewModel { get; private set; }
-        
-        protected void Bind(params ViewBinder[] viewBinders)
+
+        public override void CreateViewModel()
         {
-            ViewModel = _viewModelFactory.Create<TViewModel>(viewBinders);
+            ViewModel = _viewModelFactory.Create<TViewModel>();
+        }
+        
+        protected void Build(params Binder[] viewBinders)
+        {
             foreach (var viewBinder in viewBinders)
             {
                 viewBinder.Initialize();
             }
+            
+            ViewModel.Initialize();
         }
 
         public override void Dispose()
@@ -36,6 +40,7 @@ namespace GameCore.UI
     public abstract class View : Behaviour, IDisposable
     {
         public abstract void Initialize();
+        public abstract void CreateViewModel();
         
         public virtual void Open()
         {

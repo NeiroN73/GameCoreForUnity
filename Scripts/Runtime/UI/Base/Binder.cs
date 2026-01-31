@@ -1,16 +1,13 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using R3;
 
 namespace GameCore.UI
 {
-    public abstract class ViewModel : IDisposable
+    public abstract class Binder : IDisposable
     {
-        protected CompositeDisposable Disposable = new();
-
+        protected readonly CompositeDisposable Disposable = new();
+        
         public abstract void Initialize();
-
         public virtual void Dispose()
         {
             Disposable.Dispose();

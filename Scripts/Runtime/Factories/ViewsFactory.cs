@@ -19,6 +19,7 @@ namespace GameCore.Factories
         public void InitializeView(View view)
         {
             _objectResolver.Inject(view);
+            view.CreateViewModel();
             view.Initialize();
         }
     }
